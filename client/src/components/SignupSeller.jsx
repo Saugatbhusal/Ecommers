@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import validator from 'validator';
 import "bootstrap/dist/css/bootstrap.min.css";
 import companilogo from "../static/companilogo.JPG";
+import "bootstrap-icons/font/bootstrap-icons.css"; // Import Bootstrap Icons
 import flag from "../static/flag.JPG";
+
 
 // import { useState } from "react"
 // import axios from 'axios'
@@ -12,6 +15,38 @@ function SignupSeller() {
   // const [email, setEmail] = useState()
   // const [password, setPassword] = useState()
   // const navigate = useNavigate()
+
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
+
+  const[emailError, setemailError] = useState("");
+
+
+  const handleEmail=(e)=>{
+      const email = e.target.value
+
+      if (email===""){
+        setemailError("")
+
+      }else if (validator.isEmail(email)){
+        setemailError("")
+      }else if (validator.isMobilePhone(email, 'ne-NP')) {
+          setemailError("");  // Clear the error if it's a valid Nepali phone number
+      }else{
+        setemailError("Not valid")
+      }
+
+  }
+
+
+
+  const handlePasswordChange = (e) => {
+    setPasswordInput(e.target.value);
+  };
+
+  const togglePassword = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
 
   return (
     <div>
@@ -82,13 +117,31 @@ function SignupSeller() {
                   <input
                     className="form-control ms-0 me-auto"
                     placeholder="Phone number/Email"
+                    onBlur={(e)=>handleEmail(e)}            // onBlur runs the function when the fouc is away from the inputfield
                   ></input>
+                  <span style={{ fontWeight: 'bold', color: 'red' }} >{emailError}</span>
                   <br></br>
+                  <div className="d-flex">
                   <input
+                    type={passwordType}
+                    onChange={handlePasswordChange}
+                    value={passwordInput}
                     className="form-control ms-0 me-auto"
                     placeholder="password"
                   ></input>
-                  <br></br>
+
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={togglePassword}
+                  >
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button></div>
+
+                 <br/>
                   <button>Login</button>
                 </form>
                 <div className="text-end">
@@ -246,24 +299,31 @@ function SignupSeller() {
         className="container-fluid text-center "
         style={{ background: "#f65607" }}
       >
-        <div style={{ margin: "100px" }}>
+        <div style={{ margin: "10px" }}>
           <div className="row align-items-center">
-            <div className="col-md-4" style={{ fontSize: "36px", color: "#fff", fontWeight: "bold", padding:"0" }}>
+            <div
+              className="col-md-4"
+              style={{
+                fontSize: "36px",
+                color: "#fff",
+                fontWeight: "bold",
+                padding: "0",
+              }}
+            >
               What are you waiting for? Start selling with Classic today
             </div>
             <div className="col-md-4 offset-md-4 ">
-            <a
-              href="#"
-              className="btn btn-light"
-              style={{
-                padding: "10px 20px",
-                fontWeight: "bold",
-                fontSize: "16px",
-              }}
-            >
-              GET STARTED
-            </a>
-
+              <a
+                href="#"
+                className="btn btn-light"
+                style={{
+                  padding: "10px 20px",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                }}
+              >
+                GET STARTED
+              </a>
             </div>
           </div>
         </div>
