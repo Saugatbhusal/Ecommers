@@ -44,14 +44,15 @@ function SignupSeller() {
     setPasswordInput(e.target.value);
   };
 
-  const togglePassword = () => {
+  const togglePassword = (event) => {
+    event.preventDefault();
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
   return (
     <div>
       <div className="stickybar ">
-        <nav className="navbar bg-body-tertiary fixed-top  p-0 ">
+        <nav className="navbar bg-body-tertiary fixed-top  p-0 "> {/** the bg-body-tertiary p-3 as itisoverride by inline below (red)  */}
           <div
             className="container-fluid d-flex  "
             style={{ backgroundColor: "red" }}
@@ -146,7 +147,7 @@ function SignupSeller() {
                 </form>
                 <div className="text-end">
                   <a
-                    href="#"
+                    href="/createaccount"
                     className="text-end"
                     style={{ fontWeight: "bold" }}
                   >

@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignupSeller from './components/SignupSeller';
-import LoginSeller from './components/LoginSeller'
+import CreateAccount from './components/CreateAccount';
+import Home from './components/Home';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<div>Welcome to the Home Page</div>} />
+        {/* <Route path="/" element={<div>Welcome to the Home Page</div>} /> */}
         <Route path="/signupseller" element={<SignupSeller />} />
-        <Route path='/loginseller' element={<LoginSeller/>} />
+        <Route path='/createaccount' element={<CreateAccount/>} />
+        <Route path='/' element={<Home/>} />
       </Routes>
     </Router>
   );
